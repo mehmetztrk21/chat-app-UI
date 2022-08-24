@@ -1,110 +1,99 @@
-import { Avatar, Grid, Theme, ThemeProvider, Typography } from "@mui/material";
-import { Box, margin } from "@mui/system";
-import { createStyles, createTheme } from "@mui/material/styles";
-
-
+import { Grid} from "@mui/material";
+import { useState } from "react";
+import MessageDetails from "./components/MessageDetails";
+import Messages from "./components/Messages";
+import NewMessage from "./components/NewMessage";
+import ListNav from "./components/ListNav";
+import DetailsNav from "./components/DetailsNav";
+import "./public/main.css"
 export default function () {
-  const styles = (theme: Theme) =>
-  createStyles({
-    scrollBar: {
-      '&::-webkit-scrollbar': {
-        width: '0.4em'
-      },
-      '&::-webkit-scrollbar-track': {
-        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
-      },
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0,0,0,.1)',
-        outline: '1px solid slategrey'
-      }
-    }
-  });
+
   const users = [
     {
       name: "Mehmet",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "sent"
+
+
     },
     {
       name: "Ali",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "receive"
+
     },
     {
       name: "Zülküf",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "sent"
+
     },
     {
       name: "Hakkı",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "sent"
+
     },
     {
       name: "Ayşe",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "receive"
+
     },
     {
       name: "Beyza",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "sent"
+
     },
     {
       name: "Beyza",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "sent"
+
     },
     {
       name: "Beyza",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "receive"
+
     },
     {
       name: "Beyza",
-      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD",
+      imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294314360_3217891701815005_4278903482080621637_n.jpg?ccb=11-4&oh=01_AVzNAJaRH_pGj4DoZkLuU49JOui9Ljgs51z2dLeiLXnuXA&oe=631695F0",
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia placeat soluta inventore quam corporis vero. Maiores ullam in quidem expedita atque tempora est, porro illo blanditiis quo quasi voluptatum eius!",
-      date: "13:47"
+      date: "13:47", type: "receive"
+
     }
   ]
 
+  const [selectedUser, setSelectedUser] = useState({
+    name: "Mehmet",
+    imgUrl: "https://pps.whatsapp.net/v/t61.24694-24/294900264_1765275973847131_6493955095488304066_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_AVxIbATKQDD6kPMeF-9lokBz0IpQZU4A0AiuCA2JraqR5Q&oe=631673BD"
+  })
 
   return (
-    <div >
-      <Grid container spacing={2} sx={{ backgroundColor: "#fffff" }}>
-        <Grid item xs={3}>
-        <ThemeProvider theme={styles}>
-
-          {users.map((user) => (
-            <>
-              <Box mb={1} sx={{borderBottom:"1px solid #E0E0E0"}}>
-                <Grid item >
-                <Avatar src={user.imgUrl} sx={{ display: "inline-block"}} />
-                <Typography variant="h6" sx={{ display: "inline-block", marginLeft:2, paddingBottom:4 }}>{user.name}</Typography >
-                <Typography variant="body2" sx={{ display: "inline-block", float:"right" , marginRight:2}} color={"GrayText"}>{user.date}</Typography >
-                </Grid>
-        
-                <Typography variant="body2" color={"GrayText"}>{user.message.slice(0,60)}...</Typography>
-                </Box>
-        
-
-            </>
-          ))}
-          </ThemeProvider>
+    <div style={{maxHeight:"100vh"}}>
+      <Grid container spacing={2} sx={{ backgroundColor: "#fffff"}}>
+        <Grid item xs={3} sx={{paddingTop: "0 !important" }}>
+        <ListNav selectedUser={selectedUser}></ListNav>
+         <Messages users={users} setSelectedUser={setSelectedUser}></Messages>
         </Grid>
-        <Grid item xs={9} sx={{ backgroundColor: "#efeae2" }}>
-          <p>xs=4</p>
+        <Grid item xs={9} sx={{ backgroundColor: "#efeae2", paddingTop: "0 !important", paddingLeft: "0 !important" }}>
+         <DetailsNav selectedUser={selectedUser}></DetailsNav>
+         <MessageDetails users={users}></MessageDetails>
+         <NewMessage></NewMessage>
         </Grid>
-
-      </Grid>    </div>
+      </Grid>
+    </div>
   );
 }
 
