@@ -13,7 +13,7 @@ export default function () {
   const [loggedIn, setLoggedIn] = useState(false);
   const [chat, setChat] = useState([]);
   const [chatUser, setChatUser]: any = useState({});
-  const [selectedUser, setSelectedUser] = useState({})
+  const [selectedUser, setSelectedUser]:any = useState({})
   const [chats, setChats] = useState([]);
   const [token, setToken] = useState("");
   const chatDetail = async () => {
@@ -96,7 +96,7 @@ export default function () {
                 {Object.keys(chatUser).length != 0 ? (
                   <>
                     <DetailsNav selectedUser={selectedUser} chatUser={chatUser}></DetailsNav>
-                    <MessageDetails chat={chat} chatUser={chatUser} currentUser={1}></MessageDetails>
+                    <MessageDetails chat={chat} chatUser={chatUser} currentUser={selectedUser.id}></MessageDetails>
                     <NewMessage chatDetail={chatDetail} token={token} chatUser={chatUser}></NewMessage>
                   </>
 
