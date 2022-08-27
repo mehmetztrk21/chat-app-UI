@@ -8,12 +8,13 @@ import DetailsNav from "./components/DetailsNav";
 import "./public/main.css";
 import axios from "axios";
 import Login from "./Login";
+import openSocket from 'socket.io-client';
 
 export default function () {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [chat, setChat] = useState([]);
+  const [chat, setChat]: any = useState([]);
   const [chatUser, setChatUser]: any = useState({});
-  const [selectedUser, setSelectedUser]:any = useState({})
+  const [selectedUser, setSelectedUser]: any = useState({})
   const [chats, setChats] = useState([]);
   const [token, setToken] = useState("");
   const chatDetail = async () => {
@@ -67,8 +68,9 @@ export default function () {
       console.log("error")
     }
   }
+  let tkn: any;
   useEffect(() => {
-    let tkn = localStorage.getItem("token");
+    tkn = localStorage.getItem("token");
     setToken(tkn != null ? tkn : "");
     setLoggedIn(localStorage.getItem("loggedIn") == "true" ? true : false);
     loadChats();
@@ -82,6 +84,22 @@ export default function () {
     loadChats();
   }, [token])
 
+  useEffect(() => {
+    const socket = openSocket('http://localhost:3000');
+    socket.on('posts', data => {
+      if (data.action === 'create') {
+        addPost(data.msg);
+      }
+      // } else if (data.action === 'delete') {
+      //   this.loadPosts();
+      // }
+    });
+
+  }, [selectedUser]);
+
+  const addPost = (message: any) => {
+    chatDetail();
+  }
   return (
     <>
       {loggedIn ? (
@@ -92,7 +110,7 @@ export default function () {
                 <ListNav selectedUser={selectedUser} setLoggedIn={setLoggedIn} clearAll={clearAll}></ListNav>
                 <Messages setSelectedUser={setSelectedUser} loadChats={loadChats} chats={chats} setChatUser={setChatUser} loggedIn={loggedIn} ></Messages>
               </Grid>
-              <Grid item xs={9} onClick={chatDetail} sx={{ backgroundColor: "#efeae2", paddingTop: "0 !important", paddingLeft: "0 !important" }}>
+              <Grid item xs={9} sx={{ backgroundColor: "#efeae2", paddingTop: "0 !important", paddingLeft: "0 !important" }}>
                 {Object.keys(chatUser).length != 0 ? (
                   <>
                     <DetailsNav selectedUser={selectedUser} chatUser={chatUser}></DetailsNav>

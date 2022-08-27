@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 export default function Messages(props: any) {
   return (
     <Grid style={{ height: "83vh", overflow: 'auto' }}>
-      {props.loggedIn ? (
+      {props.chats.length>0 ? (
         <>
           {props.chats.map((item: any) => (
             <Box key={item.user.id} mb={1} className={"message-list-item"} sx={{ borderBottom: "1px solid #E0E0E0" }} onClick={(i) => { props.setChatUser(item.user) }}>
