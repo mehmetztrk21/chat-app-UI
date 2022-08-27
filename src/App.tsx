@@ -81,11 +81,17 @@ export default function () {
     setToken(tkn != null ? tkn : "");
     setLoggedIn(localStorage.getItem("loggedIn") == "true" ? true : false);
     if (remainingMilliseconds > 0) {
+      const remainingMillisecondsNew = 60 * 60 * 1000;
+      const expiryDateNew = new Date(
+        new Date().getTime() + remainingMillisecondsNew
+      );
+      localStorage.setItem("expiryDate", expiryDateNew.toISOString());
       loadChats();
     }
     else {
       autoLogOut();
     }
+
   }, []);
 
   useEffect(() => {
