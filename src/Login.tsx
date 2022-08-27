@@ -32,6 +32,11 @@ export default function Login(props: any) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem("userId",response.data.user.id);
             localStorage.setItem("loggedIn","true");
+            const remainingMilliseconds = 60 * 60 * 1000;
+            const expiryDate = new Date(
+              new Date().getTime() + remainingMilliseconds
+            );
+            localStorage.setItem('expiryDate', expiryDate.toISOString());
             props.setToken(response.data.token);
             props.setLoggedIn(true);
             props.setSelectedUser(response.data.user);

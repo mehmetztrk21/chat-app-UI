@@ -33,12 +33,18 @@ export default function () {
       }
     }
   };
-
   const clearAll = async () => {
     setChatUser({});
     setSelectedUser({});
   }
-
+  const autoLogOut = async () => {
+    clearAll();
+    setLoggedIn(false);
+    localStorage.clear();
+    return (
+      <Login />
+    )
+  }
   const loadChats = async () => {
     if (localStorage.getItem("loggedIn") == "true") {
       var response: any = await axios.get('http://localhost:3000/message/list', {
@@ -46,34 +52,40 @@ export default function () {
           Authorization: `Bearer ` + localStorage.getItem("token")
         }
       });
-      if (response) {
+      if (response.data) {
         setChats(response.data.messages);
-        userInfo()
+        userInfo();
       }
       else {
         console.log("error")
       }
-
     }
-
   }
   const userInfo = async () => {
     var response: any = await axios.post('http://localhost:3000/admin/getUser', {
       token: localStorage.getItem("token")
     });
-    if (response) {
+    if (response.data) {
       setSelectedUser(response.data.user);
     }
     else {
-      console.log("error")
+
     }
   }
   let tkn: any;
   useEffect(() => {
+    const expiryDate: any = localStorage.getItem('expiryDate');
+    const remainingMilliseconds =
+      new Date(expiryDate).getTime() - new Date().getTime();
     tkn = localStorage.getItem("token");
     setToken(tkn != null ? tkn : "");
     setLoggedIn(localStorage.getItem("loggedIn") == "true" ? true : false);
-    loadChats();
+    if (remainingMilliseconds > 0) {
+      loadChats();
+    }
+    else {
+      autoLogOut();
+    }
   }, []);
 
   useEffect(() => {
@@ -83,12 +95,12 @@ export default function () {
   useEffect(() => {
     loadChats();
   }, [token])
-  let temp=true;
+  let temp = true;
   useEffect(() => {
     const socket = openSocket('http://localhost:3000');
     socket.on('posts', data => {
       if (data.action === 'create') {
-        temp=false
+        temp = false
         addPost(data.msg);
       }
       // } else if (data.action === 'delete') {
@@ -100,7 +112,7 @@ export default function () {
 
   const addPost = (message: any) => {
     chatDetail();
-    temp=true;
+    temp = true;
   }
   return (
     <>
