@@ -83,11 +83,12 @@ export default function () {
   useEffect(() => {
     loadChats();
   }, [token])
-
+  let temp=true;
   useEffect(() => {
     const socket = openSocket('http://localhost:3000');
     socket.on('posts', data => {
       if (data.action === 'create') {
+        temp=false
         addPost(data.msg);
       }
       // } else if (data.action === 'delete') {
@@ -99,10 +100,11 @@ export default function () {
 
   const addPost = (message: any) => {
     chatDetail();
+    temp=true;
   }
   return (
     <>
-      {loggedIn ? (
+      {loggedIn && temp ? (
         <>
           <div style={{ maxHeight: "100vh" }}>
             <Grid container spacing={2} sx={{ backgroundColor: "#fffff" }}>
