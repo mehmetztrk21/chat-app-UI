@@ -1,6 +1,6 @@
-import { Avatar, Box, Grid, IconButton, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
+import { Avatar, Box, Grid, IconButton, Typography } from '@mui/material';
 
 export default function DetailsNav(props: any) {
     return (

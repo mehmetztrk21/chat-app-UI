@@ -1,14 +1,14 @@
 import { Grid } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import openSocket from 'socket.io-client';
+import DetailsNav from "./components/DetailsNav";
+import ListNav from "./components/ListNav";
 import MessageDetails from "./components/MessageDetails";
 import Messages from "./components/Messages";
 import NewMessage from "./components/NewMessage";
-import ListNav from "./components/ListNav";
-import DetailsNav from "./components/DetailsNav";
-import "./public/main.css";
-import axios from "axios";
 import Login from "./Login";
-import openSocket from 'socket.io-client';
+import "./public/main.css";
 
 export default function () {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,6 +18,7 @@ export default function () {
   const [chats, setChats] = useState([]);
   const [token, setToken] = useState("");
   const chatDetail = async () => {
+    console.log("detaişl")
     if (chatUser.id) {
       var response: any = await axios.post('http://localhost:3000/message/chat', { userId: chatUser.id }, {
         headers: {
@@ -109,9 +110,9 @@ export default function () {
         temp = false
         addPost(data.msg);
       }
-      // } else if (data.action === 'delete') {
-      //   this.loadPosts();
-      // }
+       else if (data.action === 'delete') {
+        chatDetail();
+      }
     });
 
   }, [selectedUser]);
@@ -134,7 +135,7 @@ export default function () {
                 {Object.keys(chatUser).length != 0 ? (
                   <>
                     <DetailsNav selectedUser={selectedUser} chatUser={chatUser}></DetailsNav>
-                    <MessageDetails chat={chat} chatUser={chatUser} currentUser={selectedUser.id}></MessageDetails>
+                    <MessageDetails chat={chat} chatDetail={chatDetail} chatUser={chatUser} currentUser={selectedUser.id} token={token}></MessageDetails>
                     <NewMessage chatDetail={chatDetail} token={token} chatUser={chatUser}></NewMessage>
                   </>
 

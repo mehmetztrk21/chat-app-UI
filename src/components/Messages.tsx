@@ -1,5 +1,4 @@
 import { Avatar, Box, Grid, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
 
 export default function Messages(props: any) {
   return (

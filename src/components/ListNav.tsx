@@ -1,13 +1,11 @@
-import { Avatar, Box, Divider, IconButton, InputAdornment, InputBase, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material'
-import React, { useEffect } from 'react'
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useState } from "react";
+import { Logout, Settings } from '@mui/icons-material';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import MenuIcon from '@mui/icons-material/Menu';
 import MessageIcon from '@mui/icons-material/Message';
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
+import { Avatar, Box, Divider, IconButton, InputAdornment, InputBase, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import React from 'react';
 import Login from "../Login";
 export default function ListNav(props: any) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
